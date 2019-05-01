@@ -1,26 +1,43 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
+import { Spin, Icon } from 'antd';
+import useFetch from './useFetch';
+import Footer from './Footer';
 import './App.css';
 
-const App: React.FC = () => {
+const App = () => {
+  const [yards, setYards] = useState(null);
+  const [data, loading, error] = useFetch('/yards');
+
+  useEffect(() => {
+    if (data) {
+      setYards(data);
+    }
+  }, [data]);
+
+  if (error) {
+    return (
+      <div className="App">
+        <p className="error">Something went wrong.</p>
+        <Footer />
+      </div>
+    );
+  }
+  if (loading) {
+    return (
+      <div className="App">
+        <p className="fetching">Fetching Latest Data...</p>
+        <Spin
+          indicator={<Icon type="loading" style={{ fontSize: 60 }} spin />}
+        />
+      </div>
+    );
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <p className="yards">{yards} Yards Passing</p>
+      <Footer />
     </div>
   );
-}
+};
 
 export default App;
