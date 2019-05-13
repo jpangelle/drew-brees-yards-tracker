@@ -15,6 +15,7 @@
 
 .yards,
 .error {
+  padding: 0 20px;
   font-size: 70px;
   text-align: center;
 }
