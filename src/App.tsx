@@ -34,7 +34,7 @@ const App = () => {
   }
   return (
     <div className="App">
-      <p className="yards">{yards} Yards Passing</p>
+      <p className="yards">{yards} Career Yards Passing</p>
       <Footer />
     </div>
   );
